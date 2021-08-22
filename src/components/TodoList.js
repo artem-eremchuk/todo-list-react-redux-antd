@@ -1,57 +1,27 @@
-import React, { useState } from "react";
+import React from "react";
 import TodoForm from "./TodoForm";
-import Todo from "./Todo";
+import TodoItem from "./TodoItem";
+import { connect } from "react-redux";
 
-const TodoList = () => {
-  const [todos, setTodos] = useState([]);
-
-  // Add new todo to array - from todo form input
-  const addTodo = (todo) => {
-    if (!todo.text || /^s*$/.test(todo.text)) {
-      return;
-    }
-    const newTodos = [todo, ...todos];
-
-    setTodos(newTodos);
-  };
-
-  const updateTodo = (todoId, newValue) => {
-    if (!newValue.text || /^s*$/.test(newValue.text)) {
-      return;
-    }
-
-    setTodos((prev) =>
-      prev.map((item) => (item.id === todoId ? newValue : item))
-    );
-  };
-
-  const removeTodo = (id) => {
-    const removeArr = [...todos].filter((todo) => todo.id !== id);
-    setTodos(removeArr);
-  };
-
-  const completeTodo = (id) => {
-    let updateTodos = todos.map((todo) => {
-      if (todo.id === id) {
-        todo.isComplete = !todo.isComplete;
-      }
-      return todo;
+const TodoList = ({ state, todos, editItem }) => {
+  if (!editItem) {
+    return todos.map((todo) => {
+      return (
+        <TodoItem
+          key={todo.id}
+          id={todo.id}
+          text={todo.text}
+          complete={todo.isComplete}
+        />
+      );
     });
-    setTodos(updateTodos);
-  };
-
-  return (
-    <div>
-      <h1>That's the plans for Today?</h1>
-      <TodoForm onSubmit={addTodo} />
-      <Todo
-        todos={todos}
-        completeTodo={completeTodo}
-        removeTodo={removeTodo}
-        updateTodo={updateTodo}
-      />
-    </div>
-  );
+  } else {
+    return <TodoForm editItem={editItem} />;
+  }
 };
 
-export default TodoList;
+const mapStateToProps = (state) => {
+  return { state: state, todos: state.todos, editItem: state.editItem };
+};
+
+export default connect(mapStateToProps)(TodoList);

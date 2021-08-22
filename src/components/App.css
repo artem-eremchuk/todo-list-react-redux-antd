@@ -144,5 +144,10 @@ h1 {
 }
 
 .edit-icon {
+  margin-right: 5px;
+  color: #fff;
+}
+
+.complete-icon {
   color: #fff;
 }

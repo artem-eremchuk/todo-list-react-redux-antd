@@ -1,61 +1,75 @@
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
+import { connect } from "react-redux";
+import { changeInput, addTodo, editTodo, updateTodo } from "../actions";
 
-function TodoForm(props) {
-  const [input, setInput] = useState(props.edit ? props.edit.value : "");
-
-  const inputRef = useRef(null);
-
-  useEffect(() => {
-    inputRef.current.focus();
-  });
-
+const TodoForm = ({
+  inputText,
+  changeInput,
+  addTodo,
+  editItem,
+  editTodo,
+  updateTodo,
+}) => {
   const handleChange = (e) => {
-    setInput(e.target.value);
+    if (editItem) {
+      editTodo({ ...editItem, text: e.target.value });
+    } else {
+      changeInput(e.target.value);
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    props.onSubmit({
-      id: new Date().getTime(),
-      text: input,
-    });
-
-    setInput("");
-    // console.log("click");
+    if (editItem) {
+      updateTodo(editItem);
+      editTodo(null);
+    } else {
+      addTodo(inputText);
+      changeInput("");
+    }
   };
 
   return (
     <form className="todo-form" onSubmit={handleSubmit}>
-      {props.edit ? (
+      {editItem ? (
         <>
           <input
             type="text"
-            placeholder="Update yout item"
-            value={input}
             name="text"
+            autoComplete="off"
             className="todo-input edit"
+            placeholder="Updata your Todo"
+            value={editItem.text}
             onChange={handleChange}
-            ref={inputRef}
           />
-          <button className="todo-button edit">Update</button>
+          <button className="todo-button edit">Update</button>)
         </>
       ) : (
         <>
+          {" "}
           <input
             type="text"
-            placeholder="Add a todo"
-            value={input}
             name="text"
+            autoComplete="off"
             className="todo-input"
+            placeholder="Add a Todo"
+            value={inputText}
             onChange={handleChange}
-            ref={inputRef}
           />
-          <button className="todo-button">Add todo</button>
+          <button className="todo-button">Add Todo</button>)
         </>
       )}
     </form>
   );
-}
+};
 
-export default TodoForm;
+const mapStateToProps = (state) => {
+  return { inputText: state.inputText };
+};
+
+export default connect(mapStateToProps, {
+  changeInput,
+  addTodo,
+  editTodo,
+  updateTodo,
+})(TodoForm);
