@@ -1,4 +1,3 @@
-// REDUCERS
 import { combineReducers } from "redux";
 
 const changeInputReducer = (text = "", action) => {
@@ -51,7 +50,6 @@ const removeTodoReducer = (state, action) => {
   return [...state].filter((todo) => todo.id !== id);
 };
 
-// MAIN TODO LIST REDUCER
 const todoListReducer = (state = [], action) => {
   switch (action.type) {
     case "ADD_TODO":
@@ -62,7 +60,6 @@ const todoListReducer = (state = [], action) => {
       return updaateTodo(state, action);
     case "REMOVE_TODO":
       return removeTodoReducer(state, action);
-
     default:
       return state;
   }

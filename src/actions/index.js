@@ -1,4 +1,3 @@
-// ACTIONS
 export const changeInput = (inputText) => {
   return {
     type: "CHANGE_INPUT",

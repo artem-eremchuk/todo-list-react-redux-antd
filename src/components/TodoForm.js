@@ -2,14 +2,10 @@ import React from "react";
 import { connect } from "react-redux";
 import { changeInput, addTodo, editTodo, updateTodo } from "../actions";
 
-const TodoForm = ({
-  inputText,
-  changeInput,
-  addTodo,
-  editItem,
-  editTodo,
-  updateTodo,
-}) => {
+const TodoForm = (props) => {
+  const { inputText, changeInput, addTodo, editItem, editTodo, updateTodo } =
+    props;
+
   const handleChange = (e) => {
     if (editItem) {
       editTodo({ ...editItem, text: e.target.value });
