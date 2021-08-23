@@ -30,6 +30,7 @@ const TodoForm = (props) => {
       {editItem ? (
         <>
           <input
+            style={{ outline: "none" }}
             type="text"
             name="text"
             autoComplete="off"
@@ -44,6 +45,7 @@ const TodoForm = (props) => {
         <>
           {" "}
           <input
+            style={{ outline: "none" }}
             type="text"
             name="text"
             autoComplete="off"

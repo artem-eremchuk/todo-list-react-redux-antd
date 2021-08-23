@@ -1,19 +1,6 @@
-// import React from "react";
-// import TodoList from "./components/TodoList";
-// import "./App.css";
-
-// function App() {
-//   return (
-//     <div className="todo-app">
-//       <TodoList />
-//     </div>
-//   );
-// }
-
-// export default App;
-
 import React from "react";
 import TodoApp from "./TodoApp";
+import "antd/dist/antd.css";
 import "./App.css";
 
 function App() {

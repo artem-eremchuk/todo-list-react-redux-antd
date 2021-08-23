@@ -1,10 +1,11 @@
 import React from "react";
-import { TiEdit } from "react-icons/ti";
-import { RiCloseCircleLine } from "react-icons/ri";
 import {
-  RiCheckboxBlankCircleLine,
-  RiCheckboxCircleLine,
-} from "react-icons/ri";
+  EditOutlined,
+  DeleteOutlined,
+  BorderOutlined,
+  CheckSquareOutlined,
+} from "@ant-design/icons";
+
 import { connect } from "react-redux";
 import { editTodo, completeTodo, removeTodo } from "../actions";
 
@@ -14,12 +15,12 @@ const TodoItem = (props) => {
 
   const isComplete = (complete) => {
     return complete ? (
-      <RiCheckboxCircleLine
+      <CheckSquareOutlined
         className="complete-icon"
         onClick={() => completeTodo(id)}
       />
     ) : (
-      <RiCheckboxBlankCircleLine
+      <BorderOutlined
         className="complete-icon"
         onClick={() => completeTodo(id)}
       />
@@ -30,11 +31,11 @@ const TodoItem = (props) => {
     <div className={complete ? "todo-row complete" : "todo-row"}>
       <div>{text}</div>
       <div className="icons">
-        <RiCloseCircleLine
+        <DeleteOutlined
           className="delete-icon"
           onClick={() => removeTodo(id)}
         />
-        <TiEdit
+        <EditOutlined
           className="edit-icon"
           onClick={() => editTodo(todos.find((todo) => todo.id === id))}
         />
